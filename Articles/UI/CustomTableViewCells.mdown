@@ -1,0 +1,39 @@
+
+Custom UITableViewCells loaded from XIB
+=======================================
+
+TTTableViewDataSource supports user-defined way of creating UITableViewCell objects.
+Default behaviour is creating cell object of given class, using class name as reuse identifier,
+and using constructor:
+
+	[[[cellClass alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier] autorelease];
+
+Loading custom cell from XIB
+----------------------------
+
+   1. Create descendant of UITableViewCell class.
+
+   2. Create empty XIB file with exactly the same name as class, add UITableViewCell to it.
+
+   3. Design your cell. Create outlets for interface elements and link them in Interface Builder.
+
+   4. Don't forget about Identifier - give it same name as class name.
+
+   5. In your TTTableViewDataSource descendant class, override createNewCellWithClass:identifier method.
+
+Here is simple example of loading cell from XIB. It assumes that cell is first object in NIB (and it should be almost always true):
+
+	- (UITableViewCell*)createNewCellWithClass:(Class)klaz identifier:(NSString*)identifier {
+	    NSLog(@"Trying to load %@ from nib", identifier);
+	    NSArray *tab = [[NSBundle mainBundle] loadNibNamed:identifier owner:nil options:nil];
+	    return [tab objectAtIndex:0];
+	}
+	
+      
+
+
+
+
+
+This article written by:  
+-- Tomasz Cejner (@tomekcejner) *Created on September 19, 2010.*
