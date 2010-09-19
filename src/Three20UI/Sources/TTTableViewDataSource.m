@@ -125,8 +125,7 @@
 
   UITableViewCell* cell = (UITableViewCell*)[tableView dequeueReusableCellWithIdentifier:identifier];
   if (cell == nil) {
-    cell = [[[cellClass alloc] initWithStyle:UITableViewCellStyleDefault
-                               reuseIdentifier:identifier] autorelease];
+      cell = [self createNewCellWithClass:cellClass identifier:identifier];
   }
   [identifier release];
 
@@ -137,6 +136,12 @@
   [self tableView:tableView cell:cell willAppearAtIndexPath:indexPath];
 
   return cell;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+- (UITableViewCell*)createNewCellWithClass:(Class)cellClass identifier:(NSString*)identifier {
+    return [[[cellClass alloc] initWithStyle:UITableViewCellStyleDefault
+                             reuseIdentifier:identifier] autorelease];
 }
 
 
